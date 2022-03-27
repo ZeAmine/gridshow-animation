@@ -44,10 +44,10 @@ export class TextReveal {
       this.inTimeline.kill()
     }
 
-    this.outTimeline = gsap.timeline({ defaults: { duration: 0.5, ease: 'expo.in' } })
+    this.outTimeline = gsap.timeline({ defaults: { duration: 0.7, ease: 'expo.in' } })
       .to(this.dom.inner, {
         y: '150%',
-        rotate: -5,
+        rotate: 10,
         stagger: 0.03
       });
 

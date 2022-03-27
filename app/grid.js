@@ -17,12 +17,11 @@ export class Grid {
     heading: [...document.querySelectorAll('.header__titles__item')],
     contentNav: document.querySelector('.content__item__nav'),
     contentNavItems: document.querySelectorAll('.content__item__nav-media'),
-    backBtn: document.querySelector('.content__item-btn'),
-    cursor: document.querySelector('.content__item__cursor'),
+    // cursor: document.querySelector('.content__item__cursor'),
   }
 
   gridItemArr = [];
-  titleItemArr = []
+  titleItemArr = [];
   currentItem = -1;
   isAnimation = false;
   isGridView = true;
@@ -37,6 +36,9 @@ export class Grid {
     this.titles = [...document.querySelectorAll('.oh')];
     each(this.titles, title => this.titleItemArr.push(new TextReveal(title)));
 
+    this.titleItemArr.map(item => item);
+
+
     this.initEvents();
   }
 
@@ -49,14 +51,13 @@ export class Grid {
         this.isAnimation = true;
 
         this.currentItem = index;
-        console.log(this.gridItemArr[this.currentItem])
         this.showContent(gridItem);
       })
 
-      this.dom.cursor.addEventListener('click', _ => {
-        if (!this.isGridView || this.isAnimation) return false;
+      gridItem.content.dom.backBtn.addEventListener('click', _ => {
+        if (this.isGridView || this.isAnimation) return false;
 
-        this.isGridView = false;
+        this.isGridView = true;
         this.isAnimation = true;
 
         this.closeContent();
@@ -76,7 +77,6 @@ export class Grid {
           .to(gridItem.dom.img.inner, { scale: 1.15, ease: 'power4' }, 'start')
       })
 
-
       gridItem.dom.img.outer.addEventListener('mouseleave', _ => {
         if (!this.isGridView || this.isAnimation) return false;
 
@@ -89,25 +89,25 @@ export class Grid {
           .set([ gridItem.dom.img.outer, gridItem.dom.img.inner ], { willChange: 'transform' }, 'start')
           .to([ gridItem.dom.img.outer, gridItem.dom.img.inner ], { scale: 1 }, 'start')
       })
+    })
 
-      window.addEventListener('resize', _ => {
-        if (this.isGridView) return false;
+    window.addEventListener('resize', _ => {
+      if (this.isGridView) return false;
 
-        const imageTransform = this.calcTransformImage();
-        gsap.set(this.gridItemArr[this.currentItem].dom.img.outer, {
-          scale: imageTransform.scale,
-          x: imageTransform.x,
-          y: imageTransform.y
-        })
+      const imageTransform = this.calcTransformImage();
+      gsap.set(this.gridItemArr[this.currentItem].dom.img.outer, {
+        scale: imageTransform.scale,
+        x: imageTransform.x,
+        y: imageTransform.y
+      })
 
-        each(this.otherGridItems, (otherGridItem, index) => {
-          const imgOuter = otherGridItem.dom.img.outer;
+      each(this.otherGridItems, (otherGridItem, index) => {
+        const imgOuter = otherGridItem.dom.img.outer;
 
-          gsap.set(imgOuter, {
-            scale: this.getFinalScaleValue(imgOuter),
-            x: this.getFinalTranslationValue(imgOuter, index).x,
-            y: this.getFinalTranslationValue(imgOuter, index).y
-          })
+        gsap.set(imgOuter, {
+          scale: this.getFinalScaleValue(imgOuter),
+          x: this.getFinalTranslationValue(imgOuter, index).x,
+          y: this.getFinalTranslationValue(imgOuter, index).y
         })
       })
     })
@@ -115,6 +115,7 @@ export class Grid {
 
   showContent(gridItem) {
     this.otherGridItems = this.gridItemArr.filter(el => el !== gridItem);
+    this.otherGridItemsImgOuter = this.otherGridItems.map(item => item.dom.img.outer);
 
     this.headingCurrent = this.dom.heading[this.currentItem + 1];
 
@@ -131,10 +132,10 @@ export class Grid {
         zIndex: 100,
       }, 'start')
       .to(gridItem.dom.moreBtn, {
-        y: '4%',
+        y: '1%',
         ease: 'expo',
         opacity: 0,
-      })
+      }, 'start')
       .set([ gridItem.dom.img.outer, gridItem.dom.img.inner ], {
         willChange: 'transform, opacity'
       }, 'start')
@@ -151,6 +152,7 @@ export class Grid {
       .to(this.dom.heading[0], {
         y: '-280%',
         scaleY: 4,
+        opacity: 1,
       }, 'start')
       .add(() => this.dom.heading[0].classList.remove('current-active'), 'start')
 
@@ -202,17 +204,82 @@ export class Grid {
           y: '0%',
           scaleY: 1
         }, 'showContent')
-
-        each(this.titleItemArr, title => {
-          this.timeline
-            .add(() => {
-              title.in()
-            }, 'showContent')
-        })
+        .add(() => {
+          this.titleItemArr.map(item => item.in())
+        }, 'showContent')
   }
 
   closeContent() {
+    const gridItem = this.gridItemArr[this.currentItem];
 
+    gsap.timeline({
+      defaults: { duration: 1.4, ease: 'expo.inOut' },
+      onStart: () => {
+        gsap.set(this.otherGridItems, { opacity: 1 });
+      },
+      onComplete: () => { this.isAnimation = false }
+    })
+      .addLabel('start', 0)
+      .to(this.headingCurrent, {
+        y: '-280%',
+        scaleY: 4,
+        opacity: 1,
+        onComplete: () => {this.headingCurrent.classList.remove('current-active')}
+      }, 'start')
+      .to(gridItem.content.dom.miniGrid.cells, {
+        opacity: 0,
+        stagger: 0.1,
+      }, 'start')
+      .to(gridItem.content.dom.miniGrid.el, {
+        opacity: 0,
+      }, 'start')
+      .to(gridItem.content.dom.descriptions, {
+        opacity: 0,
+        stagger: {
+          grid: 'auto',
+          amount: 0.1,
+        },
+      }, 'start')
+      .add(() => {
+        this.titleItemArr.map(item => item.out())
+      }, 'start')
+      .set([ gridItem.dom.img.outer, this.otherGridItemsImgOuter ], {
+        willChange: 'transform, opacity',
+      }, 'start')
+      .to(gridItem.dom.img.outer, {
+        scale: 1,
+        x: 0,
+        y: 0,
+        onComplete: () => {
+          gsap.set(gridItem.dom.img.outer, { willChange: '' });
+          gridItem.content.dom.el.classList.remove('current-active');
+        }
+      }, 'start+=0.5')
+      .to(this.otherGridItemsImgOuter, {
+        scale: 1,
+        x: 1,
+        y: 0,
+        stagger: pos => -0.03 * pos,
+        onComplete: () => {
+          gsap.set(this.otherGridItemsImgOuter, { willChange: '' })
+        }
+      }, 'start+=0.5')
+      .add(() => bodyEl.classList.remove('view-content'), 'start')
+      .set(gridItem.dom.el, {
+        zIndex: 1,
+      }, 'start')
+
+      .addLabel('showGrid', 'start+=1')
+      .add(() => this.dom.heading[0].classList.remove('current-active'), 'showGrid')
+      .to(this.dom.heading[0], {
+        startAt: {
+          y: '-290%',
+          ease: 'expo',
+          scaleY: 4,
+        },
+        y: '0%',
+        scaleY: 1
+      }, 'showGrid')
   }
 
 
