@@ -1,0 +1,48 @@
+.grid {
+  @extend %cover;
+
+  padding: 0 3rem;
+  z-index: 3;
+}
+
+.grid__wrapper {
+  position: absolute;
+  top: 54%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: wrap;
+  gap: 4.4rem;
+  padding: 0 9.4rem;
+}
+
+.grid__item-media {
+  width: 40rem;
+  height: 25.6rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+
+.grid__item-img {
+  @extend %cover;
+
+  object-fit: cover;
+}
+
+.grid__item__more {
+  width: 40rem;
+  height: 25.6rem;
+}
+
+.grid__item__more-link {
+  @extend %link--hidden;
+  @extend %description-12;
+
+  display: inline-block;
+  float: right;
+  font-weight: 600;
+}
+

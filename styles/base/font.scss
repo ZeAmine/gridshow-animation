@@ -1,0 +1,44 @@
+@font-face {
+  font-family: $font-druk;
+  src: url('../fonts/DrukCyr-Bold.woff2') format('woff2'),
+  url('../fonts/DrukCyr-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-druk;
+  src: url('../fonts/DrukCyr-Heavy.woff2') format('woff2'),
+  url('../fonts/DrukCyr-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: $font-graphik;
+  src: url('../fonts/Graphik-Regular.woff2') format('woff2'),
+  url('../fonts/Graphik-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-graphik;
+  src: url('../fonts/Graphik-Medium.woff2') format('woff2'),
+  url('../fonts/Graphik-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $font-graphik;
+  src: url('../fonts/Graphik-Semibold.woff2') format('woff2'),
+  url('../fonts/Graphik-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

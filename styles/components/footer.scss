@@ -1,0 +1,44 @@
+.footer {
+  @extend %cover;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+.footer__profil {
+  @extend %description-12;
+
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.footer__brand {
+  @extend %title-36;
+
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  pointer-events: none;
+}
+
+.footer__contact {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  display: inline-flex;
+  flex-direction: column;
+
+  li {
+    @extend %link--hidden;
+    @extend %description-12;
+
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    text-align: right;
+  }
+}

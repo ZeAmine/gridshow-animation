@@ -1,0 +1,45 @@
+.content {
+  @extend %center;
+  @extend %cover;
+
+  z-index: 2;
+}
+
+.content__wrapper {
+  @extend %center;
+
+  position: fixed;
+  top: 54%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 60.5rem;
+}
+
+.content__item {
+  @extend %center;
+
+  position: absolute;
+  gap: 16.1rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.content__item.current-active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.content__item__cursor {
+  position: absolute;
+  top: calc(2.6rem - 0.65rem);
+  right: 25.2rem;
+  width: calc(12rem + 1rem);
+  height: calc(7.68rem + 1rem);
+  border: 0.1rem solid $color-black;
+  opacity: 0;
+  visibility: hidden;
+}

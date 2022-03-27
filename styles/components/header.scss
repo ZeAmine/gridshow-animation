@@ -1,0 +1,56 @@
+header {
+  @extend %cover;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+.header__titles {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(186rem - 16.4rem);
+  height: 20rem;
+  pointer-events: none;
+}
+
+.header__titles__item.current-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header__titles__item {
+  @extend %title-200;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.header__about {
+  @extend %link--hidden;
+  @extend %description-12;
+
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  font-weight: 600;
+  pointer-events: auto;
+}
+
+.header__index {
+  @extend %link--hidden;
+  @extend %description-12;
+
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  font-weight: 600;
+  cursor: pointer;
+  pointer-events: auto;
+}

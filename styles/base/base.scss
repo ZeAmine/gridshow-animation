@@ -1,0 +1,69 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  @extend %cover;
+
+  position: fixed;
+  font-size: calc(100vw / 1920 * 10);
+  line-height: 1;
+  color: $color-black;
+  background-color: $color-iron;
+  overflow: hidden;
+}
+
+body {
+  @extend %cover;
+  @extend %description-12;
+
+  position: fixed;
+  font-family: $font-graphik;
+}
+
+button {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+main {
+  padding: 0 3rem;
+}
+
+.view-content .grid {
+  pointer-events: none !important;
+}
+
+.oh {
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    transform-origin: 0 50%;
+    will-change: transform;
+  }
+}
+
+
+[data-animation="label"],
+[data-animation="paragraph"],
+[data-animation="title"] {
+  span {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+}
+

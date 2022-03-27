@@ -1,0 +1,36 @@
+.content__item__right {
+  opacity: 0;
+  visibility: hidden;
+  position: relative;
+  display: block;
+  padding-bottom: 3.3rem;
+}
+
+.content__item__nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2.4rem;
+  width: 26.4rem;
+  height: 52.3rem;
+}
+
+.content__item__nav-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 12rem;
+  height: 100%;
+}
+
+.content__item__nav-media {
+  width: 12rem;
+  height: 7.68rem;
+  position: relative;
+}
+
+.content__item__nav-img {
+  @extend %cover;
+
+  object-fit: cover;
+  cursor: pointer;
+}
