@@ -36,9 +36,6 @@ export class Grid {
     this.titles = [...document.querySelectorAll('.oh')];
     each(this.titles, title => this.titleItemArr.push(new TextReveal(title)));
 
-    this.titleItemArr.map(item => item);
-
-
     this.initEvents();
   }
 
