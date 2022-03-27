@@ -1,7 +1,6 @@
 {
   "name": "gridshow",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel build views/index.pug && parcel views/index.pug --open",
     "build": "parcel build views/index.pug",
@@ -12,7 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-pug": "^2.4.0",
-    "@parcel/transformer-sass": "^2.4.0",
+    "@parcel/transformer-sass": "^2.4.0"
+  },
+  "dependencies": {
     "gsap": "^3.9.1",
     "imagesloaded": "^5.0.0",
     "lodash": "^4.17.21",
